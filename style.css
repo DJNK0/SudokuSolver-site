@@ -5,9 +5,6 @@ html {
 table {
   border: 20px solid #008;
   border-collapse: collapse;
-}
-
-.board{
   width:428.6px;
   height:410px;
   position:fixed;
@@ -16,6 +13,8 @@ table {
   top:50%;
   left:50%;
 }
+
+
 
 colgroup {
   border: 20px solid #008;
@@ -32,7 +31,7 @@ colgroup {
 #next_sol_btn{
   position:fixed;
   margin-left:-214.3px;  
-  margin-top:-280px;  
+  margin-top:275px;  
   top:50%;
   left:50%;
 }
@@ -40,7 +39,7 @@ colgroup {
 #solve_btn{
   position:fixed;
   margin-left:-214.3px;  
-  margin-top:200px;  
+  margin-top:220px;  
   top:50%;
   left:50%;
 }
