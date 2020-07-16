@@ -14,18 +14,6 @@ function replace(assignedValue, elemId){
     document.getElementById(elemId).value = assignedValue;
 }
 
-//check if number is possible
-function isValid(board, row, col, k) {
-    for (let i = 0; i < 9; i++) {
-        const m = 3 * Math.floor(row / 3) + Math.floor(i / 3);
-        const n = 3 * Math.floor(col / 3) + i % 3;
-        if (board[row][i] == k || board[i][col] == k || board[m][n] == k) {
-            return false;
-        }
-    }
-    return true;
-}
-
 function board(){
     //create board with element values
     board = [
@@ -50,8 +38,35 @@ function board(){
     ];
 }
 
+
+function isValid(board, row, col, k) {
+    for (let i = 0; i < 9; i++) {
+        const m = 3 * Math.floor(row / 3) + Math.floor(i / 3);
+        const n = 3 * Math.floor(col / 3) + i % 3;
+        if (board[row][i] == k || board[i][col] == k || board[m][n] == k) {
+          return false;
+        }
+    }
+    return true;
+}
+
+function impossible(){
+    alert("This sudoku is impossible!")
+}
+
+function resetCnt(){
+    count = 1;
+}
+
+resetCnt()
 function sudokuSolver(){
-    console.log(board)
+    count += 1;
+
+    //After 50000 tries the sudoku is impossible
+    if(count > 50000){
+        impossible();
+        return true;
+    }
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
             if (board[i][j] == '.') {
@@ -73,34 +88,36 @@ function sudokuSolver(){
     //enter the solution 
     for(let i =0; i <9; i++)
         for(let j =0; j <9; j++)
-            replace(board[i][j], i+'-'+j)
+            replace(board[i][j], i+'-'+j);
     return true;
 }
 
-function reset(){
+function resetBoard(){
     board = 
-    [
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", ""]
-    ];
+        [
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""]
+        ];
     
     for(let i =0; i <9; i++)
         for(let j =0; j <9; j++)
-            replace("", i+'-'+j)
+            replace("", i+'-'+j);
 }
 
 //bind board and solve function to the button
-solveBtn = document.getElementById("solve_btn")
+solveBtn = document.getElementById("solve_btn");
 solveBtn.addEventListener("click", board);
+solveBtn.addEventListener("click", resetCnt);
 solveBtn.addEventListener("click", sudokuSolver);
 
 //bind reset function to the reset button
-reset_btn = document.getElementById("reset_btn")
-reset_btn.addEventListener("click", reset)
+reset_btn = document.getElementById("reset_btn");
+reset_btn.addEventListener("click", resetBoard);
+
